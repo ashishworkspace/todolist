@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+
+class TaskListTile extends StatefulWidget {
+  @override
+  _TaskListTileState createState() => _TaskListTileState();
+}
+
+class _TaskListTileState extends State<TaskListTile> {
+  bool ischecked = false;
+
+  // void passedCallBackFunction(bool? value) {
+  //   setState(() {
+  //     ischecked = value!;
+  //   });
+  // }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        "This is List Tile",
+        style: TextStyle(
+            decoration: ischecked ? TextDecoration.lineThrough : null),
+      ),
+      trailing: CustomCheckBox(
+          checkboxState: ischecked,
+          toggleCheckboxState: (bool? value) {
+            // passedCallBackFunction
+            ischecked = value!;
+          }),
+    );
+  }
+}
+
+class CustomCheckBox extends StatelessWidget {
+  final bool? checkboxState;
+  final Function(bool?)? toggleCheckboxState;
+
+  CustomCheckBox({required this.checkboxState, this.toggleCheckboxState});
+  @override
+  Widget build(BuildContext context) {
+    print(toggleCheckboxState);
+    return Checkbox(
+      activeColor: Colors.lightBlueAccent,
+      onChanged: toggleCheckboxState,
+      value: checkboxState,
+    );
+  }
+}
